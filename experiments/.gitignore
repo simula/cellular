@@ -1,0 +1,11 @@
+.secret
+*.pt
+/datasets
+pipeline_output
+test_comparison
+test_output
+/experiments
+__pycache__/
+*.pyc
+*.py[cod]
+.vscode/
