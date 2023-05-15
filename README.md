@@ -1,6 +1,6 @@
 # Cellular
 
-![banner](https://raw.githubusercontent.com/simula/cellular/main/static/images/banner.png?token=GHSAT0AAAAAABZROMEOGGGIA5NNRU2NLKSWY23BANA)
+![banner](https://raw.githubusercontent.com/simula/cellular/main/static/images/banner.png?token=GHSAT0AAAAAACBA5B2UM6HSLJDH3KQJ24MEZDCAF3Q)
 
 *Life is in an equilibrium state between synthesis and degradation of proteins, and that is the difference between organisms and machines!* Yoshinori Ohsumi. Ohsumi was awarded the 2016 Nobel Prize in Physiology or Medicine for his discoveries of mechanisms for autophagy. “Autophagy” originates from the Greek words auto-, meaning “self”, and phagein, meaning “to eat”, and hence denotes “self-eating”. Autophagy involves pathways undertaken by animal cells to deliver cytoplasmic material to the lysosome for degradation as means of cellular regeneration. A series of molecular events culminate in the formation of the autophagosomes, their subsequent fusion with lysosomes and finally degradation of cargo in autolysosomes. 
 
