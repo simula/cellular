@@ -6,6 +6,8 @@
 
 Autophagy is a dynamic process that exists in basal and activated levels. Basal autophagy, defined as autophagic activity occurring during cellular growth in nutrient-rich media, ensures maintenance of cellular quality control such as regular recycling of unwanted or damaged cellular products. On the other hand, stimulated levels exist in response to stressful conditions, such as changes in nutritional status and the presence of abnormal proteins as means to ensure protection from stress-induced damage. The hallmark of autophagy is the formation of double-membrane vesicles known as autophagosomes, which engulf cytoplasmic material and deliver the cargo to hydrolytic enzymes in lysosomes for degradation. Hence, autophagy provides building blocks for synthesis of macromolecules during limitations in nutrient supply. 
 
+The dataet is available here: https://zenodo.org/record/7503365
+
 ## Experiments
 The experiments performed in the publushed paper are included in the `experiments` folder. The dataet splits are also provided.
 
