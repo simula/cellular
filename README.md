@@ -75,9 +75,9 @@ This command will train a model using the data in `/path/to/train/data` as the t
 The `evaluate_model.py` script is responsible for evaluating the performance of the trained Cellpose model on a test dataset.
 
 Parameters explained:
-- `--test_dir`: Path to the directory containing the test data (default is specified in the script).
-- `--model_path`: Path to the trained model file (default is specified in the script).
-- `--output_dir`: The directory where the evaluation results and predicted masks will be saved (default is "experiments/unfed-multi-object").
+- `--test_dir`: Path to the directory containing the test data.
+- `--model_path`: Path to the trained model file.
+- `--output_dir`: The directory where the evaluation results and predicted masks will be saved.
 
 #### How to Run
 To run the script, navigate to the directory containing the `evaluate_model.py` script and execute the following command:
