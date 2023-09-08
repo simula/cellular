@@ -27,6 +27,8 @@ You can install the necessary Python packages by running:
 pip install -r requirements.txt
 ```
 
+You can reproduce all experiemnts as they were presented in the paper by running the `run_experiments.sh` shell script.
+
 ### Stage 1: Prepare Data
 The `prepare_data.py` script contains functions to process and combine mask images. Here is a brief description of each function:
 
