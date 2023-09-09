@@ -125,4 +125,9 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     setup_logging()
+
+    if os.path.exists(args.output_path):
+        logging.error(f"The output path {args.output_path} already exists.")
+        exit()
+        
     process_masks(args.input_path, args.output_dir, args.corresponding_files_dir, args.val_pattern, args.test_pattern, args.format)

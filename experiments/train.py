@@ -47,8 +47,13 @@ if __name__ == '__main__':
 
     parser.add_argument('--train_dir', type=str, required=True, help='Path to the training directory')
     parser.add_argument('--valid_dir', type=str, required=True, help='Path to the validation directory')
-    parser.add_argument('--experiment_name', type=str, required=True, help='Path to the testing directory')
     parser.add_argument('--experiments_dir', type=str, default="./experiments", help='Directory to output images and evaluation')
+    parser.add_argument('--experiment_name', type=str, required=True, help='Path to the testing directory')
 
     args = parser.parse_args()
+
+    if os.path.exists(args.output_path):
+        print(f"The experiments {args.experiments_dir} already exists.")
+        exit()
+
     main(args)
