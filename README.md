@@ -27,6 +27,11 @@ You can install the necessary Python packages by running:
 pip install -r requirements.txt
 ```
 
+You can reproduce all experiemnts as they were presented in the paper by running the `run_experiments.sh` shell script like the following: 
+```bash
+sh run_experiments.sh ./path/to/single-masks ./output-path
+```
+
 ### Stage 1: Prepare Data
 The `prepare_data.py` script contains functions to process and combine mask images. Here is a brief description of each function:
 
@@ -47,7 +52,7 @@ python prepare_data.py -i <input_path> -o <output_dir> -c <corresponding_files_d
 
 ### Stage 2: Train Model
 
-The `train_model.py` script facilitates the training of the model using the Cellpose library.
+The `train.py` script facilitates the training of the model using the Cellpose library.
 
 Parameters explained:
 - `--train_dir`: Path to the directory containing training data.
@@ -59,20 +64,20 @@ Parameters explained:
 To run the script, navigate to the directory containing the `train_model.py` script and execute the following command:
 
 ```bash
-python train_model.py --train_dir <path_to_training_directory> --valid_dir <path_to_validation_directory> --experiment_name <experiment_name> --experiments_dir <path_to_experiments_directory>
+python train.py --train_dir <path_to_training_directory> --valid_dir <path_to_validation_directory> --experiment_name <experiment_name> --experiments_dir <path_to_experiments_directory>
 ```
 
 #### Example Command
 
 ```bash
-python train_model.py --train_dir "/path/to/train/data" --valid_dir "/path/to/valid/data" --experiment_name "experiment_1" --experiments_dir "./experiments"
+python train.py --train_dir "/path/to/train/data" --valid_dir "/path/to/valid/data" --experiment_name "experiment_1" --experiments_dir "./experiments"
 ```
 
 This command will train a model using the data in `/path/to/train/data` as the training data and `/path/to/valid/data` as the validation data. The outputs will be saved in the `./experiments` directory under a folder named "experiment_1".
 
 ### Stage 3: Evaluate Model
 
-The `evaluate_model.py` script is responsible for evaluating the performance of the trained Cellpose model on a test dataset.
+The `eval.py` script is responsible for evaluating the performance of the trained Cellpose model on a test dataset.
 
 Parameters explained:
 - `--test_dir`: Path to the directory containing the test data.
@@ -83,13 +88,13 @@ Parameters explained:
 To run the script, navigate to the directory containing the `evaluate_model.py` script and execute the following command:
 
 ```bash
-python evaluate_model.py --test_dir <path_to_test_directory> --model_path <path_to_pretrained_model> --output_dir <path_to_output_directory>
+python eval.py --test_dir <path_to_test_directory> --model_path <path_to_pretrained_model> --output_dir <path_to_output_directory>
 ```
 
 #### Example Command
 
 ```bash
-python evaluate_model.py --test_dir "/path/to/test/data" --model_path "/path/to/model" --output_dir "./experiments/evaluation_results"
+python eval.py --test_dir "/path/to/test/data" --model_path "/path/to/model" --output_dir "./experiments/evaluation_results"
 ```
 
 This command will evaluate the model using the data in `/path/to/test/data` as the test data and `/path/to/model` as the pretrained model. The outputs, including evaluation results and predicted masks, will be saved in the `./experiments/evaluation_results` directory.
