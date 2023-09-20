@@ -126,8 +126,8 @@ if __name__ == "__main__":
 
     setup_logging()
 
-    if os.path.exists(args.output_path):
-        logging.error(f"The output path {args.output_path} already exists.")
+    if os.path.exists(args.output_dir):
+        logging.error(f"The output path {args.output_dir} already exists.")
         exit()
         
     process_masks(args.input_path, args.output_dir, args.corresponding_files_dir, args.val_pattern, args.test_pattern, args.format)
