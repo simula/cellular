@@ -80,7 +80,7 @@ def process_masks(input_path, output_dir, corresponding_files_dir, val_pattern, 
             filename_base = os.path.basename(dirpath)
 
             all_masks = []
-            all_masks_output_dir = os.path.join(output_dir, format, "all", split_name)
+            all_masks_output_dir = os.path.join(output_dir, "all", split_name)
             create_directory(all_masks_output_dir)
             logging.info(f"Processing {dirpath}...")
             
@@ -95,7 +95,7 @@ def process_masks(input_path, output_dir, corresponding_files_dir, val_pattern, 
                 all_masks.extend(class_masks)
 
                 # Create output directory structure: output_dir/class_name/split_name
-                output_dir_class_split = os.path.join(output_dir, format, class_name, split_name)
+                output_dir_class_split = os.path.join(output_dir, class_name, split_name)
                 create_directory(output_dir_class_split)
 
                 save_filepath = os.path.join(output_dir_class_split, f"{filename_base}_masks.{format}")
@@ -126,8 +126,8 @@ if __name__ == "__main__":
 
     setup_logging()
 
-    if os.path.exists(args.output_path):
-        logging.error(f"The output path {args.output_path} already exists.")
+    if os.path.exists(args.output_dir):
+        logging.info(f"The output path {args.output_dir} already exists.")
         exit()
         
     process_masks(args.input_path, args.output_dir, args.corresponding_files_dir, args.val_pattern, args.test_pattern, args.format)

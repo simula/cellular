@@ -2,6 +2,8 @@ import argparse
 import os
 import json
 from cellpose import io, models
+import matplotlib.pyplot as plt
+import matplotlib
 import numpy as np
 from sklearn.metrics import f1_score, precision_score, recall_score, jaccard_score
 
@@ -44,6 +46,16 @@ def main(args):
             inputs,
             channels=channels
         )
+
+        fig, ax = plt.subplots()
+
+        colors = [(0, 0, 0)] + [(plt.cm.tab10(i/(1000-1))) for i in range(1, 1000)]
+        cmap = matplotlib.colors.ListedColormap(colors)
+
+        ax.imshow(masks, cmap=cmap)
+        ax.axis('off')
+        fig.savefig(os.path.join(image_output_dir, "pred_visualized_%s" % filename), bbox_inches='tight', pad_inches=0)
+        plt.close(fig)
 
         io.imsave(os.path.join(image_output_dir, "pred_%s" % filename), masks)
 
@@ -96,7 +108,7 @@ def main(args):
     }
 
     with open(os.path.join(output_dir, "%s_eval.json" % dataset_name), "w") as f:
-        json.dump(results, f)
+        json.dump(results, f, indent=4)
         logger.info("Evaluation results saved to eval.json")
 
 if __name__ == '__main__':
