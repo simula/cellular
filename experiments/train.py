@@ -33,11 +33,11 @@ def main(args):
         test_labels=valid_labels,
         channels=channels, 
         save_path=save_dir, 
-        n_epochs=500,
-        learning_rate=0.02,
+        n_epochs=100,
+        learning_rate=0.00002,
         weight_decay=0.0001,
         nimg_per_epoch=16,
-        min_train_masks=1,
+        SGD=False,
         model_name=experiment_name)
 
     diam_labels = model.diam_labels.copy()

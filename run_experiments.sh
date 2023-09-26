@@ -4,6 +4,7 @@ INPUT_DIR="./data/single-masks"
 COLOR_IMAGES_DIR="./data/color-images"
 DATA_OUTPUT_DIR="./data/dev-data"
 EXPERIMENT_OUTPUT_DIR="./results"
+CURRENT_DATE=$(date +"%D/%T")
 
 while [[ "$#" -gt 0 ]]; do
     case $1 in
@@ -22,13 +23,13 @@ for CLASS_NAME in all fed unfed; do
     python ./experiments/train.py \
     --train_dir $DATA_OUTPUT_DIR/$CLASS_NAME/train \
     --valid_dir $DATA_OUTPUT_DIR/$CLASS_NAME/valid \
-    --experiments_dir $EXPERIMENT_OUTPUT_DIR \
+    --experiments_dir $EXPERIMENT_OUTPUT_DIR/$CURRENT_DATE \
     --experiment_name $CLASS_NAME --force
     
-    for DIR in test valid train; do
+    for DIR in train valid test; do
         python ./experiments/eval.py \
         --test_dir $DATA_OUTPUT_DIR/$CLASS_NAME/$DIR \
-        --model_path $EXPERIMENT_OUTPUT_DIR/$CLASS_NAME/models/$CLASS_NAME \
-        --output_dir $EXPERIMENT_OUTPUT_DIR/$CLASS_NAME
+        --model_path $EXPERIMENT_OUTPUT_DIR/$CURRENT_DATE/$CLASS_NAME/models/$CLASS_NAME \
+        --output_dir $EXPERIMENT_OUTPUT_DIR/$CURRENT_DATE/$CLASS_NAME
     done
 done
