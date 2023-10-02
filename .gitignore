@@ -9,3 +9,5 @@ __pycache__/
 *.py[cod]
 .vscode/
 /_temp
+results/
+data/

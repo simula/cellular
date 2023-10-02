@@ -1,7 +1,7 @@
 import argparse
 import os
 import json
-from cellpose import io, models
+from cellpose import io, models, metrics
 import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
@@ -86,10 +86,16 @@ def main(args):
     output = io.load_images_labels(test_dir)
     test_data, test_labels, test_filenames = output
 
+    true_masks = []
+    pred_masks = []
+
     for inputs, labels, abs_filename in zip(test_data, test_labels, test_filenames):
         filename = os.path.basename(abs_filename)
 
         masks, _, _ = model.eval(inputs, channels=channels, diameter=None)
+
+        true_masks.append(labels)
+        pred_masks.append(masks)
 
         fig, ax = plt.subplots()
 
@@ -138,6 +144,21 @@ def main(args):
     f1_list = np.array(f1_list)
     jaccard_list = np.array(jaccard_list)
 
+    true_masks = np.array(true_masks)
+    pred_masks = np.array(pred_masks)
+
+    cellpose_mask_ious = metrics.mask_ious(true_masks, pred_masks)
+    logger.info(f"Mask ious: {cellpose_mask_ious}")
+
+    cellpose_boundary_scores = metrics.boundary_scores(true_masks, pred_masks, [1])
+    logger.info(f"Boundary scores: {cellpose_boundary_scores}")
+
+    cellpose_aggregated_jaccard_index = metrics.aggregated_jaccard_index(true_masks, pred_masks)
+    logger.info(f"Aggregated jaccard index: {cellpose_aggregated_jaccard_index}")
+
+    cellpose_average_precision = metrics.average_precision(true_masks, pred_masks)
+    logger.info(f"Average precision: {cellpose_average_precision}")
+
     results["background"] = {
         "precision": np.mean(precision_list[:, 0]),
         "recall": np.mean(recall_list[:, 0]),
@@ -157,6 +178,10 @@ def main(args):
         "recall": np.mean(recall_list),
         "f1": np.mean(f1_list),
         "jaccard": np.mean(jaccard_list),
+        "mask_ious": cellpose_mask_ious,
+        "boundary_scores": cellpose_boundary_scores,
+        "aggregated_jaccard_index": cellpose_aggregated_jaccard_index,
+        "average_precision": cellpose_average_precision,
     }
 
     with open(os.path.join(output_dir, "%s_eval.json" % dataset_name), "w") as f:

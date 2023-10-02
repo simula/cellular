@@ -26,7 +26,7 @@ for CLASS_NAME in all fed unfed; do
     --experiments_dir $EXPERIMENT_OUTPUT_DIR/$CURRENT_DATE \
     --experiment_name $CLASS_NAME --force
     
-    for DIR in train valid test; do
+    for DIR in test valid train; do
         python ./experiments/eval.py \
         --test_dir $DATA_OUTPUT_DIR/$CLASS_NAME/$DIR \
         --model_path $EXPERIMENT_OUTPUT_DIR/$CURRENT_DATE/$CLASS_NAME/models/$CLASS_NAME \
