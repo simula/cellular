@@ -160,6 +160,6 @@ if __name__ == "__main__":
         logging.info(f"The output path {args.output_dir} already exists.")
         exit()
 
-    download_and_unzip("datasets.simula.no/downloads/cellular.zip", "data2")
+    download_and_unzip("https://datasets.simula.no/downloads/cellular.zip", args.input_path)
         
     process_masks(args.input_path, args.output_dir, args.val_pattern, args.test_pattern, args.format)
