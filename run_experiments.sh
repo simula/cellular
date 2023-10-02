@@ -1,7 +1,6 @@
 #!/bin/bash
 
-INPUT_DIR="./data/single-masks"
-COLOR_IMAGES_DIR="./data/color-images"
+INPUT_DIR="./data"
 DATA_OUTPUT_DIR="./data/dev-data"
 EXPERIMENT_OUTPUT_DIR="./results"
 CURRENT_DATE=$(date +"%D/%T")
@@ -9,7 +8,6 @@ CURRENT_DATE=$(date +"%D/%T")
 while [[ "$#" -gt 0 ]]; do
     case $1 in
         -i|--input-dir) INPUT_DIR="$2"; shift ;;
-        -c|--color-images-dir) COLOR_IMAGES_DIR="$2"; shift ;;
         -o|--data-output-dir) DATA_OUTPUT_DIR="$2"; shift ;;
         -e|--experiment-output-dir) EXPERIMENT_OUTPUT_DIR="$2"; shift ;;
         *) echo "Unknown parameter passed: $1"; exit 1 ;;
@@ -17,7 +15,7 @@ while [[ "$#" -gt 0 ]]; do
     shift
 done
 
-python ./experiments/prepare_datasets.py -i $INPUT_DIR -c $COLOR_IMAGES_DIR -o $DATA_OUTPUT_DIR
+python ./experiments/prepare_datasets.py -i $INPUT_DIR -o $DATA_OUTPUT_DIR
 
 for CLASS_NAME in all fed unfed; do
     python ./experiments/train.py \

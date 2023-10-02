@@ -1,5 +1,9 @@
 import os
 import cv2
+
+import zipfile
+import requests
+
 import numpy as np
 import argparse
 import logging
@@ -63,14 +67,17 @@ def split_data(directory_path, val_pattern, test_pattern):
 
     return data
 
-def process_masks(input_path, output_dir, corresponding_files_dir, val_pattern, test_pattern, format, exclude_class=["Unidentified"]):
+def process_masks(input_path, output_dir, val_pattern, test_pattern, format, exclude_class=["Unidentified"]):
     """Process and save combined mask images."""
     if not os.path.exists(input_path):
         logging.error(f"The input path {input_path} does not exist.")
         return
     
+    masks_dir = os.path.join(input_path, "single-masks")
+    images_dir = os.path.join(input_path, "images-color")
+    
     # Split data into train, validation, and test sets
-    data = split_data(input_path, val_pattern, test_pattern)
+    data = split_data(masks_dir, val_pattern, test_pattern)
     
     # Process and save combined masks for each split
     for split_name, split_files in data.items():
@@ -103,7 +110,7 @@ def process_masks(input_path, output_dir, corresponding_files_dir, val_pattern, 
                 logging.info(f"Combined mask image saved as {save_filepath}")
 
                 # Copy the corresponding files based on the filename of the mask
-                copy_corresponding_files(corresponding_files_dir, output_dir_class_split, filename_base)
+                copy_corresponding_files(images_dir, output_dir_class_split, filename_base)
 
             combined_mask = combine_masks(mask_images)
             save_filepath = os.path.join(all_masks_output_dir, f"{filename_base}_masks.{format}")
@@ -111,13 +118,36 @@ def process_masks(input_path, output_dir, corresponding_files_dir, val_pattern, 
             logging.info(f"Combined mask image saved as {save_filepath}")
 
             # Copy the corresponding files based on the filename of the mask
-            copy_corresponding_files(corresponding_files_dir, all_masks_output_dir, filename_base)
+            copy_corresponding_files(images_dir, all_masks_output_dir, filename_base)
+
+def download_and_unzip(url, directory_path):
+    # Check if directory exists
+    if not os.path.exists(directory_path):
+        os.makedirs(directory_path)
+
+        # Download the zip file
+        zip_file_path = os.path.join(directory_path, "temp.zip")
+        response = requests.get(url)
+        
+        if response.status_code == 200:
+            with open(zip_file_path, 'wb') as zip_file:
+                zip_file.write(response.content)
+
+            # Unzip the file
+            with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
+                zip_ref.extractall(directory_path)
+
+            # Remove the temporary zip file
+            os.remove(zip_file_path)
+        else:
+            logging.info(f"Failed to download zip from {url}. HTTP Status Code: {response.status_code}")
+    else:
+        logging.info(f"The directory {directory_path} already exists.")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process and combine mask images.')
     parser.add_argument('-i', '--input_path', type=str, help='Path to the input directory containing mask images.')
     parser.add_argument('-o', '--output_dir', type=str, help='Path to the output directory to save combined masks.')
-    parser.add_argument('-c', '--corresponding_files_dir', type=str, help='Path to the directory containing files corresponding to the masks.')
     parser.add_argument('-v', '--val_pattern', type=str, default='ST_I06', help='String pattern to identify validation files.')
     parser.add_argument('-t', '--test_pattern', type=str, default='ST_K07', help='String pattern to identify test files.')
     parser.add_argument('-f', '--format', type=str, default='png', help='File formats to save the masks.')
@@ -129,5 +159,7 @@ if __name__ == "__main__":
     if os.path.exists(args.output_dir):
         logging.info(f"The output path {args.output_dir} already exists.")
         exit()
+
+    download_and_unzip("datasets.simula.no/downloads/cellular.zip", "data2")
         
-    process_masks(args.input_path, args.output_dir, args.corresponding_files_dir, args.val_pattern, args.test_pattern, args.format)
+    process_masks(args.input_path, args.output_dir, args.val_pattern, args.test_pattern, args.format)
