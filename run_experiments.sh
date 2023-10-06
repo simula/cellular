@@ -17,7 +17,7 @@ done
 
 python ./experiments/prepare_datasets.py -i $INPUT_DIR -o $DATA_OUTPUT_DIR
 
-for CLASS_NAME in all fed unfed; do
+for CLASS_NAME in all; do
     python ./experiments/train.py \
     --train_dir $DATA_OUTPUT_DIR/$CLASS_NAME/train \
     --valid_dir $DATA_OUTPUT_DIR/$CLASS_NAME/valid \
@@ -28,6 +28,18 @@ for CLASS_NAME in all fed unfed; do
         python ./experiments/eval.py \
         --test_dir $DATA_OUTPUT_DIR/$CLASS_NAME/$DIR \
         --model_path $EXPERIMENT_OUTPUT_DIR/$CURRENT_DATE/$CLASS_NAME/models/$CLASS_NAME \
-        --output_dir $EXPERIMENT_OUTPUT_DIR/$CURRENT_DATE/$CLASS_NAME
+        --output_dir $EXPERIMENT_OUTPUT_DIR/$CURRENT_DATE/$CLASS_NAME/custom;
+    done
+done
+
+
+for CLASS_NAME in all; do
+    for MODEL_TYPE in cyto cyto2; do
+        for DIR in test valid train; do
+            python ./experiments/eval_pretrained.py \
+            --test_dir $DATA_OUTPUT_DIR/$CLASS_NAME/$DIR \
+            --model_type $MODEL_TYPE \
+            --output_dir $EXPERIMENT_OUTPUT_DIR/$CURRENT_DATE/$CLASS_NAME/pretrained/$MODEL_TYPE;
+        done
     done
 done

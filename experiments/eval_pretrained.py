@@ -65,7 +65,7 @@ def main(args):
     jaccard_list, precision_list, recall_list, f1_list = [], [], [], []
 
     test_dir = args.test_dir
-    model_path = args.model_path
+    model_type = args.model_type
     output_dir = args.output_dir
 
     dataset_name = os.path.basename(test_dir)
@@ -80,7 +80,7 @@ def main(args):
     if not os.path.exists(image_output_dir):
         os.makedirs(image_output_dir)
 
-    model = models.CellposeModel(gpu=True, pretrained_model=model_path)
+    model = models.Cellpose(gpu=True, model_type=model_type)
 
     logger.info("Loading test data...")
     output = io.load_images_labels(test_dir)
@@ -92,7 +92,11 @@ def main(args):
     for inputs, labels, abs_filename in zip(test_data, test_labels, test_filenames):
         filename = os.path.basename(abs_filename)
 
-        masks, _, _ = model.eval(inputs, channels=channels, diameter=None)
+        masks, _, _, _ = model.eval(
+            inputs,
+            channels=channels,
+            diameter=121
+        )
 
         true_masks.append(labels)
         pred_masks.append(masks)
@@ -147,19 +151,16 @@ def main(args):
     true_masks = np.array(true_masks)
     pred_masks = np.array(pred_masks)
 
-    # cellpose_mask_ious = list(metrics.mask_ious(true_masks, pred_masks))
+    # cellpose_mask_ious = metrics.mask_ious(true_masks, pred_masks)
     # logger.info(f"Mask ious: {cellpose_mask_ious}")
 
-    # logger.info(f"Calculating cell boundry scores")
-    # cellpose_boundary_scores = [ v.tolist() for v in metrics.boundary_scores(true_masks, pred_masks, [1]) ]
+    # cellpose_boundary_scores = metrics.boundary_scores(true_masks, pred_masks, [1])
     # logger.info(f"Boundary scores: {cellpose_boundary_scores}")
 
-    # logger.info(f"Calculating jaccard")
-    # cellpose_aggregated_jaccard_index = list(metrics.aggregated_jaccard_index(true_masks, pred_masks))
+    # cellpose_aggregated_jaccard_index = metrics.aggregated_jaccard_index(true_masks, pred_masks)
     # logger.info(f"Aggregated jaccard index: {cellpose_aggregated_jaccard_index}")
 
-    # logger.info(f"Calculating average precision")
-    # cellpose_average_precision = list(metrics.average_precision(true_masks, pred_masks))
+    # cellpose_average_precision = metrics.average_precision(true_masks, pred_masks)
     # logger.info(f"Average precision: {cellpose_average_precision}")
 
     results["background"] = {
@@ -198,7 +199,7 @@ if __name__ == "__main__":
     )
 
     parser.add_argument("--test_dir", type=str, help="Path to the testing directory")
-    parser.add_argument("--model_path", type=str, help="Path to the model")
+    parser.add_argument("--model_type", type=str, help="Pretrained model")
     parser.add_argument(
         "--output_dir", type=str, help="Directory to output images and evaluation"
     )

@@ -74,7 +74,7 @@ def process_masks(input_path, output_dir, val_pattern, test_pattern, format, exc
         return
     
     masks_dir = os.path.join(input_path, "single-masks")
-    images_dir = os.path.join(input_path, "images-color")
+    images_dir = os.path.join(input_path, "color-images")
     
     # Split data into train, validation, and test sets
     data = split_data(masks_dir, val_pattern, test_pattern)
@@ -149,7 +149,7 @@ if __name__ == "__main__":
     parser.add_argument('-i', '--input_path', type=str, help='Path to the input directory containing mask images.')
     parser.add_argument('-o', '--output_dir', type=str, help='Path to the output directory to save combined masks.')
     parser.add_argument('-v', '--val_pattern', type=str, default='ST_I06', help='String pattern to identify validation files.')
-    parser.add_argument('-t', '--test_pattern', type=str, default='ST_K07', help='String pattern to identify test files.')
+    parser.add_argument('-t', '--test_pattern', type=str, default='ST_C03', help='String pattern to identify test files.')
     parser.add_argument('-f', '--format', type=str, default='png', help='File formats to save the masks.')
     
     args = parser.parse_args()
