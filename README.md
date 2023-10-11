@@ -61,6 +61,7 @@ The `train.py` script facilitates the training of the model using the Cellpose l
 Parameters explained:
 - `--train_dir`: Path to the directory containing training data.
 - `--valid_dir`: Path to the directory containing validation data.
+- `--model_type`: Type of model to fine-tune.
 - `--experiment_name`: The name of the experiment (used to name the output directory and saved model).
 - `--experiments_dir`: The directory where experiment outputs (images, evaluations) will be saved (default is "./experiments").
 
