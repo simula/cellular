@@ -3,10 +3,10 @@ import cv2
 
 import zipfile
 import requests
-
-import numpy as np
 import argparse
 import logging
+
+import numpy as np
 from shutil import copy2
 from collections import defaultdict
 
@@ -162,6 +162,6 @@ if __name__ == "__main__":
         logging.info(f"The output path {args.output_dir} already exists.")
         exit()
 
-    download_and_unzip("https://datasets.simula.no/downloads/cellular.zip", args.input_path)
+    download_and_unzip("https://datasets.simula.no/downloads/cellular-experiments.zip", args.input_path)
         
     process_masks(args.input_path, args.image_dirname, args.mask_dirname, args.output_dir, args.val_pattern, args.test_pattern, args.format)
