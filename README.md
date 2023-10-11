@@ -12,8 +12,8 @@ The dataet is available here: https://zenodo.org/record/8315423
 The following steps can be used to reproduce the experiments included in the paper.
 
 The weights for the models presented in the paper are available here:
-* [Fine-tuned cyto](https://datasets.simula.no/downloads/cellular-experiments-models/FIne-Tuned-Cyto)
-* [Fine-tuned cyto2](https://datasets.simula.no/downloads/cellular-experiments-models/FIne-Tuned-Cyto2)
+* [Fine-tuned cyto](https://datasets.simula.no/downloads/cellular-experiments-models/Fine-Tuned-Cyto)
+* [Fine-tuned cyto2](https://datasets.simula.no/downloads/cellular-experiments-models/Fine-Tuned-Cyto2)
 
 ### Prerequisites
 
