@@ -11,6 +11,12 @@ The dataet is available here: https://zenodo.org/record/8315423
 ## Reproducibility Guide
 The following steps can be used to reproduce the experiments included in the paper.
 
+The weights for the models presented in the paper are available here:
+* [Pre-trained cyto]()
+* [Pre-trained cyto2]()
+* [Fine-tuned cyto]()
+* [Fine-tuned cyto2]()
+
 ### Prerequisites
 
 Ensure you have the following installed:
