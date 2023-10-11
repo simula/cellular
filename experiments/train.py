@@ -8,14 +8,15 @@ def main(args):
 
     logger, _ = io.logger_setup()
 
-    model = models.CellposeModel(gpu=True, model_type="cyto2")
-
-    channels = [0, 0]
-
     train_dir = args.train_dir
     valid_dir = args.valid_dir
     experiment_name = args.experiment_name
     experiments_dir = args.experiments_dir
+    model_type = args.model_type
+
+    model = models.CellposeModel(gpu=True, model_type=model_type)
+
+    channels = [0, 0]
 
     logger.info("Starting training")
     logger.info("Train: %s" % train_dir)
@@ -52,6 +53,7 @@ if __name__ == '__main__':
 
     parser.add_argument('--train_dir', type=str, required=True, help='Path to the training directory')
     parser.add_argument('--valid_dir', type=str, required=True, help='Path to the validation directory')
+    parser.add_argument("--model_type", default="cyto2" type=str, help="Pretrained model")
     parser.add_argument('--experiments_dir', type=str, default="./experiments", help='Directory to output images and evaluation')
     parser.add_argument('--experiment_name', type=str, required=True, help='Path to the testing directory')
     parser.add_argument('--force', action='store_true', default=False, help='Force of results directory')

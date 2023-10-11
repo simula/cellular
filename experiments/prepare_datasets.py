@@ -67,14 +67,14 @@ def split_data(directory_path, val_pattern, test_pattern):
 
     return data
 
-def process_masks(input_path, output_dir, val_pattern, test_pattern, format, exclude_class=["Unidentified"]):
+def process_masks(input_path, image_dirname, mask_dirname, output_dir, val_pattern, test_pattern, format, exclude_class=["Unidentified"]):
     """Process and save combined mask images."""
     if not os.path.exists(input_path):
         logging.error(f"The input path {input_path} does not exist.")
         return
     
-    masks_dir = os.path.join(input_path, "single-masks")
-    images_dir = os.path.join(input_path, "color-images")
+    masks_dir = os.path.join(input_path, mask_dirname)
+    images_dir = os.path.join(input_path, image_dirname)
     
     # Split data into train, validation, and test sets
     data = split_data(masks_dir, val_pattern, test_pattern)
@@ -147,6 +147,8 @@ def download_and_unzip(url, directory_path):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process and combine mask images.')
     parser.add_argument('-i', '--input_path', type=str, help='Path to the input directory containing mask images.')
+    parser.add_argument('-d', '--image_dirname', default="", type=str, help='Name of image directory.')
+    parser.add_argument('-m', '--mask_dirname', default="masks", type=str, help='Name of image directory.')
     parser.add_argument('-o', '--output_dir', type=str, help='Path to the output directory to save combined masks.')
     parser.add_argument('-v', '--val_pattern', type=str, default='ST_I06', help='String pattern to identify validation files.')
     parser.add_argument('-t', '--test_pattern', type=str, default='ST_C03', help='String pattern to identify test files.')
@@ -162,4 +164,4 @@ if __name__ == "__main__":
 
     download_and_unzip("https://datasets.simula.no/downloads/cellular.zip", args.input_path)
         
-    process_masks(args.input_path, args.output_dir, args.val_pattern, args.test_pattern, args.format)
+    process_masks(args.input_path, args.image_dirname, args.mask_dirname, args.output_dir, args.val_pattern, args.test_pattern, args.format)
