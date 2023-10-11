@@ -33,7 +33,7 @@ pip install -r requirements.txt
 
 You can reproduce all experiemnts as they were presented in the paper by running the `run_experiments.sh` shell script like the following: 
 ```bash
-sh run_experiments.sh ./path/to/single-masks ./output-path
+sh run_experiments.sh ./path/to/masks ./output-path
 ```
 
 ### Stage 1: Prepare Data
