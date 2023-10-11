@@ -53,7 +53,7 @@ if __name__ == '__main__':
 
     parser.add_argument('--train_dir', type=str, required=True, help='Path to the training directory')
     parser.add_argument('--valid_dir', type=str, required=True, help='Path to the validation directory')
-    parser.add_argument("--model_type", default="cyto2" type=str, help="Pretrained model")
+    parser.add_argument("--model_type", default="cyto2", type=str, help="Pretrained model")
     parser.add_argument('--experiments_dir', type=str, default="./experiments", help='Directory to output images and evaluation')
     parser.add_argument('--experiment_name', type=str, required=True, help='Path to the testing directory')
     parser.add_argument('--force', action='store_true', default=False, help='Force of results directory')
