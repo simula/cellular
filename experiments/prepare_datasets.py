@@ -123,6 +123,10 @@ def process_masks(input_path, image_dirname, mask_dirname, output_dir, val_patte
 def download_and_unzip(url, directory_path):
     # Check if directory exists
     if not os.path.exists(directory_path):
+
+        logging.info("Input dataset does not exist.")
+        logging.info("Downloading")
+
         os.makedirs(directory_path)
 
         # Download the zip file
@@ -130,12 +134,19 @@ def download_and_unzip(url, directory_path):
         response = requests.get(url)
         
         if response.status_code == 200:
+
+            logging.info("Download complete.")
+
             with open(zip_file_path, 'wb') as zip_file:
                 zip_file.write(response.content)
+
+            logging.info("Unzipping dataset.")
 
             # Unzip the file
             with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
                 zip_ref.extractall(directory_path)
+
+            logging.info("Unzip complete.")
 
             # Remove the temporary zip file
             os.remove(zip_file_path)
