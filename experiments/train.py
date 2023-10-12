@@ -14,6 +14,13 @@ def main(args):
     experiments_dir = args.experiments_dir
     model_type = args.model_type
 
+    n_epochs = args.n_epochs
+    learning_rate = args.learning_rate
+    weight_decay = args.weight_decay
+    batch_size = args.batch_size
+    use_sgd = args.use_sgd
+    rescale = args.rescale
+
     model = models.CellposeModel(gpu=True, model_type=model_type)
 
     channels = [0, 0]
@@ -34,12 +41,12 @@ def main(args):
         test_labels=valid_labels,
         channels=channels, 
         save_path=save_dir, 
-        n_epochs=500,
-        learning_rate=0.2,
-        weight_decay=0.00001,
-        nimg_per_epoch=16,
-        SGD=True,
-        rescale=True,
+        n_epochs=n_epochs,
+        learning_rate=learning_rate,
+        weight_decay=weight_decay,
+        batch_size=batch_size,
+        SGD=use_sgd,
+        rescale=rescale,
         model_name=experiment_name)
 
     diam_labels = model.diam_labels.copy()
@@ -57,6 +64,13 @@ if __name__ == '__main__':
     parser.add_argument('--experiments_dir', type=str, default="./experiments", help='Directory to output images and evaluation')
     parser.add_argument('--experiment_name', type=str, required=True, help='Path to the testing directory')
     parser.add_argument('--force', action='store_true', default=False, help='Force of results directory')
+
+    parser.add_argument('--n_epochs', type=int, default=500, help='Number of epochs')
+    parser.add_argument('--learning_rate', type=float, default=0.2, help='Learning rate')
+    parser.add_argument('--weight_decay', type=float, default=0.00001, help='Weight decay')
+    parser.add_argument('--batch_size', type=int, default=8, help='Batch size')
+    parser.add_argument('--use_sgd', type=bool, default=True, help='Use SGD')
+    parser.add_argument('--rescale', type=bool, default=True, help='Rescale')
 
     args = parser.parse_args()
 
