@@ -23,6 +23,7 @@ Ensure you have the following installed:
 - OpenCV (cv2)
 - NumPy
 - Cellpose
+- Matplotlib
 - Scikit-Learn
 
 You can install the necessary Python packages by running:
@@ -64,6 +65,14 @@ Parameters explained:
 - `--model_type`: Type of model to fine-tune.
 - `--experiment_name`: The name of the experiment (used to name the output directory and saved model).
 - `--experiments_dir`: The directory where experiment outputs (images, evaluations) will be saved (default is "./experiments").
+- `--n_epochs`: The number of training epochs
+- `--learning_rate`: The learning rate
+- `--weight_decay`: The weight decay
+- `--batch_size`: The batch size
+- `--use_sgd`: Using SGD or Radam
+- `--rescale`: Wether to rescale cells
+
+Specifics on the trainig api can be found in Cellpose's official documentation: https://cellpose.readthedocs.io/en/latest/api.html
 
 #### How to Run
 To run the script, navigate to the directory containing the `train_model.py` script and execute the following command:
