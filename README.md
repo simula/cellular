@@ -8,6 +8,23 @@ Autophagy is a dynamic process that exists in basal and activated levels. Basal 
 
 The dataet is available here: https://zenodo.org/record/8315423
 
+## Cite
+If you use the code or dataset presented in this repository, please city our paper:
+```
+@article{AlOuta2023,
+  author = {{Al Outa}, Amani and Hicks, Steven and Thambawita, Vajira and Andresen, Siri and Enserink, Jorrit M and Halvorsen, P{\aa}l and Riegler, Michael A and Kn{\ae}velsrud, Helene},
+  doi = {10.1038/s41597-023-02687-x},
+  issn = {2052-4463},
+  journal = {Scientific Data},
+  number = {1},
+  pages = {806},
+  title = {{CELLULAR, A Cell Autophagy Imaging Dataset}},
+  url = {https://doi.org/10.1038/s41597-023-02687-x},
+  volume = {10},
+  year = {2023}
+}
+```
+
 ## Reproducibility Guide
 The following steps can be used to reproduce the experiments included in the paper.
 
