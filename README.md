@@ -9,7 +9,7 @@ Autophagy is a dynamic process that exists in basal and activated levels. Basal 
 The dataet is available here: https://zenodo.org/record/8315423
 
 ## Cite
-If you use the code or dataset presented in this repository, please city our paper:
+If you use the code or dataset presented in this repository, please city our paper (https://www.nature.com/articles/s41597-023-02687-x):
 ```
 @article{AlOuta2023,
   author = {{Al Outa}, Amani and Hicks, Steven and Thambawita, Vajira and Andresen, Siri and Enserink, Jorrit M and Halvorsen, P{\aa}l and Riegler, Michael A and Kn{\ae}velsrud, Helene},
